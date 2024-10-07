@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 #include "Impl.hpp"
 
 class DNF
@@ -11,7 +12,7 @@ class DNF
         DNF(std::string);
         ~DNF();
 
-        void Minimize(DNF&);
+        void Minimize(DNF&, std::string&);
         void Print();
         Impl& GetImpl(int);
 };

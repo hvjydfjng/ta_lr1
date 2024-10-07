@@ -16,19 +16,35 @@ DNF::~DNF(){
 
 }
 
-void DNF::Minimize(DNF& TargetDNF){
-    int start_size = TargetDNF.Data.size();                                                                     //Запоминаем стартовые импликанты 
-    for(int i = 0; i < start_size; i++)                                                                             //Перебор всех изначальных импликант
+void DNF::Minimize(DNF& TargetDNF, std::string& StartDNF){
+    int start_size;                                                                                                         //Запоминаем стартовые импликанты 
+    bool NotPatched = true;
+    while (NotPatched == true)
     {
-        for (int j = 0; j < start_size; j++)
+        NotPatched = false;
+        start_size = TargetDNF.Data.size();
+        for(int i = 0; i < start_size; i++)                                                                                 //Перебор всех изначальных импликант
         {
-            Impl Patched_Impl = TargetDNF.Data[i].Patch(TargetDNF.Data[i], TargetDNF.Data[j]);
-            if (Patched_Impl.IsValid == true)
+            for (int j = 0; j < start_size; j++)
             {
-                TargetDNF.Data.push_back(Patched_Impl);
+                Impl Patched_Impl = TargetDNF.Data[i].Patch(TargetDNF.Data[i], TargetDNF.Data[j]);        
+                if (Patched_Impl.IsValid == true)
+                {
+                    TargetDNF.Data.push_back(Patched_Impl);
+                }
+            } 
+        }
+        for (auto it = TargetDNF.Data.begin(); it != TargetDNF.Data.end(); )                                            //Удаляем склеенные импликанты
+        {
+            if (it->Pw == true) {
+                NotPatched = true;
+                it = TargetDNF.Data.erase(it);                                                                              // erase возвращает новый корректный итератор
+            } else {
+                ++it;                                                                                                         // Увеличиваем итератор только если не удаляем элемент
             }
-        } 
+        }       
     }
+    
 }
 
 void DNF::Print() {
