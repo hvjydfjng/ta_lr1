@@ -10,7 +10,8 @@ CXXFLAGS = -Wall -Wextra -std=c++11 -g -fdebug-prefix-map=$(CURDIR)=.
 # Исходные файлы
 SRCS = main.cpp\
 Impl.cpp\
-DNF.cpp
+DNF.cpp\
+Cover_table.cpp
 
 # Объектные файлы (будут размещены в папке build)
 OBJS = $(addprefix build/, $(SRCS:.cpp=.o))

@@ -12,7 +12,7 @@ class DNF
         DNF(std::string);
         ~DNF();
 
-        void Minimize(DNF&, std::string&);
+        void Minimize(DNF&);
         void Print();
         Impl& GetImpl(int);
 };

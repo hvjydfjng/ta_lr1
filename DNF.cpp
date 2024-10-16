@@ -16,7 +16,7 @@ DNF::~DNF(){
 
 }
 
-void DNF::Minimize(DNF& TargetDNF, std::string& StartDNF){
+void DNF::Minimize(DNF& TargetDNF){
     int start_size;                                                                                                         //Запоминаем стартовые импликанты 
     bool NotPatched = true;
     while (NotPatched == true)
@@ -44,7 +44,6 @@ void DNF::Minimize(DNF& TargetDNF, std::string& StartDNF){
             }
         }       
     }
-    
 }
 
 void DNF::Print() {

@@ -59,7 +59,7 @@ Impl Impl::Patch(Impl &A, Impl &B) {
     if ((A.Num < B.Num) && (A.P == B.P) && ((B.Ind - A.Ind) == 1) && (A.Count(B.Num - A.Num) == 1)) {
         A.Pw = true;
         B.Pw = true;
-        Impl C(A.Num, B.Num - A.Num);
+        Impl C(A.Num,A.P + B.Num - A.Num);
         return C;
     }
     
@@ -68,4 +68,19 @@ Impl Impl::Patch(Impl &A, Impl &B) {
     return invalidImpl;
 }
 
+ std::string Impl::toFormattedString(int totalVars){
+        std::string result(totalVars, ' '); // Инициализация строки пробелами
+
+        for (int i = 0; i < totalVars; ++i) {
+            if ((P >> i) & 1) { // Проверяем маску
+                result[i] = '-'; // Маска
+            } else if ((Num >> i) & 1) { // Проверяем на 1
+                result[i] = '1'; // Присутствует переменная
+            } else {
+                result[i] = '0'; // Отрицание переменной
+            }
+        }
+
+        return result;
+    }
 
