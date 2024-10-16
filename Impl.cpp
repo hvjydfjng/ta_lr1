@@ -68,19 +68,24 @@ Impl Impl::Patch(Impl &A, Impl &B) {
     return invalidImpl;
 }
 
- std::string Impl::toFormattedString(int totalVars){
-        std::string result(totalVars, ' '); // Инициализация строки пробелами
+std::string Impl::toFormattedString(int totalVars){
+    std::string result(totalVars, ' '); // Инициализация строки пробелами
 
-        for (int i = 0; i < totalVars; ++i) {
-            if ((P >> i) & 1) { // Проверяем маску
-                result[i] = '-'; // Маска
-            } else if ((Num >> i) & 1) { // Проверяем на 1
-                result[i] = '1'; // Присутствует переменная
-            } else {
-                result[i] = '0'; // Отрицание переменной
-            }
+    // Заполнение строки в обратном порядке
+    for (int i = 0; i < totalVars; ++i) {
+        int index = totalVars - 1 - i; // Индекс для обратного порядка
+
+        if ((P >> i) & 1) { // Проверяем маску
+            result[index] = '-'; // Маска
+        } else if ((Num >> i) & 1) { // Проверяем на 1
+            result[index] = '1'; // Присутствует переменная
+        } else {
+            result[index] = '0'; // Отрицание переменной
         }
-
-        return result;
     }
+
+    return result;
+}
+
+
 

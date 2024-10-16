@@ -36,6 +36,7 @@ int main(){
     for (int i = 0; i < result.tdnf.size(); i++)
     {
         output_file<<result.tdnf[i].toFormattedString(4)<<std::endl;
+        std::cout<<result.tdnf[i].toFormattedString(4)<<std::endl;
     }
     return 0;
 }
