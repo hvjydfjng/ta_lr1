@@ -4,17 +4,23 @@ TARGET = build/main.exe
 # Компилятор
 CXX = g++
 
+# Папки с заголовочными файлами
+INCLUDE_DIRS = headers\
+				headers/table
+
 # Флаги компиляции
-CXXFLAGS = -Wall -Wextra -std=c++11 -g -fdebug-prefix-map=$(CURDIR)=.
+CXXFLAGS = -Wall -Wextra -std=c++11 -g $(addprefix -I, $(INCLUDE_DIRS)) -fdebug-prefix-map=$(CURDIR)=.
 
 # Исходные файлы
-SRCS = main.cpp\
-Impl.cpp\
-DNF.cpp\
-Cover_table.cpp
+SRCS = sources/main.cpp \
+       sources/Impl.cpp \
+       sources/DNF.cpp \
+       sources/Cover_table.cpp \
+	   sources/Automat.cpp \
+	   sources/table/*.cpp 
 
 # Объектные файлы (будут размещены в папке build)
-OBJS = $(addprefix build/, $(SRCS:.cpp=.o))
+OBJS = $(patsubst sources/%.cpp sources/table/%.cpp, build/%.o, $(SRCS))
 
 # Правило по умолчанию — сборка проекта
 all: $(TARGET)
@@ -25,13 +31,13 @@ $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 # Правило для сборки объектных файлов
-build/%.o: %.cpp
+build/%.o: sources/%.cpp
 	@if not exist build mkdir build
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Правило для очистки (удаление объектных файлов и исполняемого файла)
 clean:
-	del /Q build\*.o build\main.exe
+	rm -f build/*.o build/main.exe
 
 # Правило для повторной сборки всего проекта
 rebuild: clean all

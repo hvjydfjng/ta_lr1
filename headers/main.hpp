@@ -8,3 +8,7 @@
 #include "Impl.hpp"
 #include "DNF.hpp"
 #include "Cover_table.hpp"
+
+#include "transitiontable.hpp"
+#include "outputtable.hpp"
+#include "Automat.hpp"
